@@ -52,6 +52,7 @@ class MotionWakeButton(MotionWakeEntity, ButtonEntity):
 
     def __init__(self, coord, entry, key: str, name: str, icon: str, action) -> None:
         super().__init__(coord, entry)
+        self._attr_unique_id = f"{entry.unique_id}_{key}"
         self._client = coord.client
         self._attr_translation_key = key
         self._attr_name = name

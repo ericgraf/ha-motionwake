@@ -30,6 +30,10 @@ class ScreenStateSensor(MotionWakeEntity, SensorEntity):
     _attr_name = "Screen state"
     _attr_translation_key = "screen_state"
 
+    def __init__(self, coord, entry) -> None:
+        super().__init__(coord, entry)
+        self._attr_unique_id = f"{entry.unique_id}_screen_state"
+
     @property
     def state(self) -> str | None:
         data = self.coordinator.data or {}
@@ -45,6 +49,10 @@ class LastMotionSensor(MotionWakeEntity, SensorEntity):
     _attr_native_unit_of_measurement = "s"
     _attr_state_class = SensorStateClass.MEASUREMENT
     _attr_entity_category = EntityCategory.DIAGNOSTIC
+
+    def __init__(self, coord, entry) -> None:
+        super().__init__(coord, entry)
+        self._attr_unique_id = f"{entry.unique_id}_last_motion"
 
     @property
     def native_value(self) -> float | None:

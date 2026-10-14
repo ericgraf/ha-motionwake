@@ -40,6 +40,7 @@ class MotionWakeSwitch(MotionWakeEntity, SwitchEntity):
 
     def __init__(self, coord, entry) -> None:
         super().__init__(coord, entry)
+        self._attr_unique_id = f"{entry.unique_id}_monitor"
         self._client = coord.client
 
     @property
