@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import logging
+from datetime import timedelta
 
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed
@@ -16,14 +17,18 @@ _LOGGER = logging.getLogger(__package__)
 class MotionWakeCoordinator(DataUpdateCoordinator[dict]):
     """Polls GET /status on the tablet."""
 
-    config_entry = None
-
-    def __init__(self, hass: HomeAssistant, client: MotionWakeClient) -> None:
+    def __init__(
+        self,
+        hass: HomeAssistant,
+        client: MotionWakeClient,
+        config_entry=None,
+    ) -> None:
         super().__init__(
             hass,
             _LOGGER,
             name="motionwake_status",
-            update_interval=SCAN_INTERVAL_SECONDS,
+            config_entry=config_entry,
+            update_interval=timedelta(seconds=SCAN_INTERVAL_SECONDS),
         )
         self.client = client
 

@@ -32,7 +32,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
 
     session = aiohttp.ClientSession()
     client = MotionWakeClient(session, host, port, token)
-    coordinator = MotionWakeCoordinator(hass, client)
+    coordinator = MotionWakeCoordinator(hass, client, entry)
 
     try:
         await coordinator.async_refresh()
