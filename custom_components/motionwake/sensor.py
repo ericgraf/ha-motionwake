@@ -21,7 +21,7 @@ async def async_setup_entry(
 ) -> None:
     """Set up sensor entities."""
     coord = hass.data[DOMAIN][entry.entry_id]
-    async_add_entities([ScreenStateSensor(coord), LastMotionSensor(coord)])
+    async_add_entities([ScreenStateSensor(coord, entry), LastMotionSensor(coord, entry)])
 
 
 class ScreenStateSensor(MotionWakeEntity, SensorEntity):

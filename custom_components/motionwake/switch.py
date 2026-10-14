@@ -24,7 +24,7 @@ async def async_setup_entry(
 ) -> None:
     """Set up the MotionWake entities for this config entry."""
     coord = hass.data[DOMAIN][entry.entry_id]
-    async_add_entities([MotionWakeSwitch(coord)])
+    async_add_entities([MotionWakeSwitch(coord, entry)])
 
 
 class MotionWakeSwitch(MotionWakeEntity, SwitchEntity):
@@ -38,8 +38,8 @@ class MotionWakeSwitch(MotionWakeEntity, SwitchEntity):
     _attr_name = "Motion monitoring"
     _attr_translation_key = "monitor"
 
-    def __init__(self, coord) -> None:
-        super().__init__(coord)
+    def __init__(self, coord, entry) -> None:
+        super().__init__(coord, entry)
         self._client = coord.client
 
     @property

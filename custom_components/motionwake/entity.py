@@ -13,8 +13,11 @@ from .coordinator import MotionWakeCoordinator
 class MotionWakeEntity(CoordinatorEntity[MotionWakeCoordinator]):
     """Common base: coordinator plumbing + device metadata."""
 
-    config_entry: ConfigEntry
     _attr_has_entity_name = True
+
+    def __init__(self, coord: MotionWakeCoordinator, entry: ConfigEntry) -> None:
+        super().__init__(coord)
+        self.config_entry = entry
 
     @property
     def device_info(self) -> DeviceInfo:

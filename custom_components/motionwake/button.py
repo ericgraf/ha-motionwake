@@ -28,13 +28,14 @@ async def async_setup_entry(
     async_add_entities(
         [
             MotionWakeButton(
-                coord, "wake", "Wake display", "mdi:power", lambda c: c.wake()
+                coord, entry, "wake", "Wake display", "mdi:power", lambda c: c.wake()
             ),
             MotionWakeButton(
-                coord, "sleep", "Sleep display", "mdi:moon", lambda c: c.sleep()
+                coord, entry, "sleep", "Sleep display", "mdi:moon", lambda c: c.sleep()
             ),
             MotionWakeButton(
                 coord,
+                entry,
                 "reload",
                 "Reload dashboard",
                 "mdi:web-refresh",
@@ -49,8 +50,8 @@ class MotionWakeButton(MotionWakeEntity, ButtonEntity):
 
     _attr_entity_category = EntityCategory.CONFIG
 
-    def __init__(self, coord, key: str, name: str, icon: str, action) -> None:
-        super().__init__(coord)
+    def __init__(self, coord, entry, key: str, name: str, icon: str, action) -> None:
+        super().__init__(coord, entry)
         self._client = coord.client
         self._attr_translation_key = key
         self._attr_name = name
