@@ -1,0 +1,10 @@
+{
+  "domain": "motionwake",
+  "name": "MotionWake",
+  "config_flow": true,
+  "documentation": "https://github.com/ericgraf/ha-motionwake",
+  "issue_tracker": "https://github.com/ericgraf/ha-motionwake/issues",
+  "codeowners": ["@ericgraf"],
+  "requirements": [],
+  "iot_class": "local_polling"
+}

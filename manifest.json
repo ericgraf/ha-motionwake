@@ -1,0 +1,9 @@
+{
+    "name": "MotionWake",
+    "domain": "motionwake",
+    "documentation": "https://github.com/ericgraf/ha-motionwake",
+    "issue_tracker": "https://github.com/ericgraf/ha-motionwake/issues",
+    "homeassistant": "2024.1.0",
+    "version": "1.0.0",
+    "iot_class": "local_polling"
+}

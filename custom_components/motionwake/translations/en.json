@@ -1,0 +1,64 @@
+{
+    "config": {
+        "step": {
+            "user": {
+                "title": "MotionWake tablet",
+                "description": "Point Home Assistant at a MotionWake Fire tablet. Use the tablet's LAN IP and the API token shown in the MotionWake app.",
+                "data": {
+                    "host": "Host",
+                    "port": "Port",
+                    "token": "API token"
+                }
+            }
+        },
+        "error": {
+            "cannot_connect": "Could not reach the tablet (check host/port and that the MotionWake service is running).",
+            "invalid_auth": "The tablet rejected the API token."
+        },
+        "abort": {
+            "already_configured": "This tablet is already configured."
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "title": "MotionWake settings",
+                "data": {
+                    "host": "Host",
+                    "port": "Port",
+                    "token": "API token"
+                }
+            }
+        },
+        "error": {
+            "cannot_connect": "Could not reach the tablet.",
+            "invalid_auth": "The tablet rejected the API token."
+        }
+    },
+    "entity": {
+        "switch": {
+            "monitor": {
+                "name": "Motion monitoring"
+            }
+        },
+        "button": {
+            "wake": {
+                "name": "Wake display"
+            },
+            "sleep": {
+                "name": "Sleep display"
+            },
+            "reload": {
+                "name": "Reload dashboard"
+            }
+        },
+        "sensor": {
+            "screen_state": {
+                "name": "Screen state"
+            },
+            "last_motion": {
+                "name": "Last motion"
+            }
+        }
+    }
+}
