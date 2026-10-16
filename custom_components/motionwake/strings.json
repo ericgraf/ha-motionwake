@@ -22,11 +22,13 @@
     "options": {
         "step": {
             "init": {
-                "title": "MotionWake settings",
+                "title": "MotionWake options",
+                "description": "Connection details, plus an optional OTA source for the 'Update app' button: an http(s) URL to the release APK, or a file path visible from the Home Assistant container (e.g. /config/motionwake-update.apk).",
                 "data": {
                     "host": "Host",
                     "port": "Port",
-                    "token": "API token"
+                    "token": "API token",
+                    "update_source": "OTA source (optional)"
                 }
             }
         },
@@ -50,6 +52,28 @@
             },
             "reload": {
                 "name": "Reload dashboard"
+            },
+            "restart": {
+                "name": "Restart service"
+            },
+            "update": {
+                "name": "Update app (OTA)"
+            }
+        },
+        "number": {
+            "threshold": {
+                "name": "Motion threshold"
+            },
+            "check_seconds": {
+                "name": "Check interval (s)"
+            },
+            "idle_minutes": {
+                "name": "Idle limit (min)"
+            }
+        },
+        "text": {
+            "dashboard_url": {
+                "name": "Dashboard URL"
             }
         },
         "sensor": {
@@ -58,6 +82,21 @@
             },
             "last_motion": {
                 "name": "Last motion"
+            },
+            "idle_seconds": {
+                "name": "Idle time (s)"
+            },
+            "version": {
+                "name": "App version"
+            },
+            "auto_start": {
+                "name": "Auto start"
+            },
+            "adb_tcp": {
+                "name": "ADB TCP"
+            },
+            "update_state": {
+                "name": "Update state"
             }
         }
     }

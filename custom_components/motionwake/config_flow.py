@@ -13,7 +13,14 @@ from homeassistant.data_entry_flow import FlowResult
 from homeassistant.exceptions import HomeAssistantError
 
 from .client import MotionWakeAuthError, MotionWakeClient, MotionWakeError
-from .const import CONF_HOST, CONF_PORT, CONF_TOKEN, DEFAULT_PORT, DOMAIN
+from .const import (
+    CONF_HOST,
+    CONF_PORT,
+    CONF_TOKEN,
+    CONF_UPDATE_SOURCE,
+    DEFAULT_PORT,
+    DOMAIN,
+)
 
 _LOGGER = logging.getLogger(__package__)
 
@@ -78,7 +85,7 @@ class MotionWakeOptionsFlow(OptionsFlow):
     """Handle options (host / port / token)."""
 
     async def async_step_init(self, user_input=None) -> FlowResult:
-        """Handle the options flow."""
+        """Handle the options flow (connection + optional OTA source)."""
         errors: dict[str, str] = {}
         entry = self.config_entry
         if user_input is not None:
@@ -99,6 +106,7 @@ class MotionWakeOptionsFlow(OptionsFlow):
                         CONF_HOST: host,
                         CONF_PORT: port,
                         CONF_TOKEN: token,
+                        CONF_UPDATE_SOURCE: user_input.get(CONF_UPDATE_SOURCE, "").strip(),
                     }
                 )
                 return self.async_create_entry(title="", data={})
@@ -109,6 +117,10 @@ class MotionWakeOptionsFlow(OptionsFlow):
                     CONF_PORT, default=int(entry.data.get(CONF_PORT, DEFAULT_PORT))
                 ): int,
                 vol.Required(CONF_TOKEN, default=entry.data.get(CONF_TOKEN, "")): str,
+                vol.Optional(
+                    CONF_UPDATE_SOURCE,
+                    default=entry.data.get(CONF_UPDATE_SOURCE, ""),
+                ): str,
             }
         )
         return self.async_show_form(

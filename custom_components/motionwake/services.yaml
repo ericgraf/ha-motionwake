@@ -1,0 +1,13 @@
+set_settings:
+  fields:
+    entry_id:
+      required: true
+      example: "6f1c9d2a4b3e8f70a5c6d7e8f9a0b1c2"
+    threshold:
+      example: 3.5
+    check_seconds:
+      example: 2
+    idle_minutes:
+      example: 10
+    dashboard_url:
+      example: "http://silver:8123/wall-tablets/fire-3"
