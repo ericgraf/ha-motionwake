@@ -23,7 +23,7 @@
         "step": {
             "init": {
                 "title": "MotionWake options",
-                "description": "Connection details, plus an optional OTA source for the 'Update app' button: an http(s) URL to the release APK, or a file path visible from the Home Assistant container (e.g. /config/motionwake-update.apk).",
+                "description": "Connection details, plus an optional OTA source for the 'Update app (OTA)' button. Three modes: (1) 'http(s)://...' URL or file path to the release APK — HA fetches it and POSTs the bytes to the tablet's /update endpoint (works on permissive builds); (2) preferred on this Fire fleet: a shell command run on the Home Assistant host — e.g. cmd:ssh calvin 'cd /home/egraf/scripts/firetablet-app && ./scripts/ota-update.sh C' (host-driven adb install, the proven channel).",
                 "data": {
                     "host": "Host",
                     "port": "Port",
@@ -66,6 +66,9 @@
             },
             "check_seconds": {
                 "name": "Check interval (s)"
+            },
+            "confirm_cycles": {
+                "name": "Motion confirm cycles"
             },
             "idle_minutes": {
                 "name": "Idle limit (min)"

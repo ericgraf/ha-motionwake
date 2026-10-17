@@ -55,6 +55,37 @@ async def async_setup_entry(
     source = (entry.data.get(CONF_UPDATE_SOURCE) or "").strip()
     if source:
         async def _ota(client) -> dict:
+            if source.startswith("cmd:"):
+                # Host-driven OTA (the proven channel on the Fire builds in
+                # this fleet: pm's file-context broker accepts shell-uid
+                # streamed installs but rejects app-uid file installs).
+                # Runs a shell command inside the HA host, e.g.:
+                #   cmd:ssh calvin 'cd /home/egraf/scripts/firetablet-app &&
+                #     ./scripts/ota-update.sh C'
+                cmd = source[len("cmd:"):].strip()
+                proc = await asyncio.create_subprocess_shell(
+                    cmd,
+                    stdout=asyncio.subprocess.PIPE,
+                    stderr=asyncio.subprocess.STDOUT,
+                )
+                try:
+                    out, _ = await asyncio.wait_for(proc.communicate(), timeout=900)
+                except asyncio.TimeoutError:
+                    proc.kill()
+                    raise HomeAssistantError(
+                        "OTA command timed out (900 s)"
+                    ) from None
+                tail = out.decode(errors="replace").strip()
+                if proc.returncode != 0:
+                    _LOGGER.warning("OTA command rc=%s — %s", proc.returncode, tail[-500:])
+                    raise HomeAssistantError(
+                        f"OTA command exited {proc.returncode}: {tail[-300:]}"
+                    )
+                _LOGGER.info("OTA command OK — %s", tail[-300:])
+                return {"ok": True, "via": "command"}
+            # In-app channel: fetch the APK (http(s) URL or local file) and
+            # POST the raw bytes to the tablet's /update endpoint (works on
+            # builds where pm's broker is permissive).
             apk = await client.fetch_apk(source)
             return await client.post_update(apk)
 

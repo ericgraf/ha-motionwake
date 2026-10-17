@@ -1,7 +1,9 @@
-"""Configurable number entities: threshold, check interval, idle limit.
+"""Configurable number entities: threshold, check interval, confirm cycles, idle limit.
 
-All three are applied live by the app (POST /settings triggers its
+These are applied live by the app (POST /settings triggers its
 SharedPreferences listener, which updates the camera immediately).
+confirm_cycles requires app 2.7+; on 2.6 it reports unknown and
+changes are ignored.
 """
 
 from __future__ import annotations
@@ -28,6 +30,7 @@ PARALLEL_UPDATES = 1
 _NUMBER_DEFS = [
     ("threshold", 0.5, 15.0, 0.1, False, "mdi:target-account"),
     ("check_seconds", 2, 30, 1, True, "mdi:timer-sync"),
+    ("confirm_cycles", 1, 5, 1, True, "mdi:check-all"),
     ("idle_minutes", 1, 1440, 1, True, "mdi:alarm-sleep"),
 ]
 
